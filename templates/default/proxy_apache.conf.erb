@@ -23,7 +23,7 @@
 # limitations under the License.
 #
 
-<% if @new_resource.ssl_redirect_http -%>
+<% if @new_resource.ssl_enabled && @new_resource.ssl_redirect_http -%>
 <% @new_resource.listen_ports.select{|port| port.to_i != 80}.each do |port| -%>
 Listen <%= port %> http
 NameVirtualHost *:<%= port %>

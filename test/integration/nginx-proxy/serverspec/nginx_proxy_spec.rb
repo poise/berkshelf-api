@@ -29,7 +29,7 @@ describe port(26200) do
 end
 
 describe port(80) do
-  it { should_not be_listening }
+  it { should be_listening }
 end
 
 describe port(443) do
@@ -51,7 +51,7 @@ end
 
 describe 'Berkshelf API' do
   it 'should return status ok' do
-    data = JSON::parse(Net::HTTP.get(URI('http://localhost:26200/status')))
+    data = JSON::parse(Net::HTTP.get(URI('http://localhost/status')))
     data['status'].should eq('ok')
   end
 end

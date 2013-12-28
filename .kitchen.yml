@@ -7,10 +7,32 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+    run_list:
+    - recipe[apt]
   - name: centos-6.4
 
 suites:
 - name: default
   run_list:
   - recipe[berkshelf-api]
-
+  attributes:
+    berkshelf-api:
+      git_repository: https://github.com/coderanger/berkshelf-api.git
+- name: nginx-proxy
+  run_list:
+  - recipe[nginx]
+  - recipe[berkshelf-api]
+  attributes:
+    berkshelf-api:
+      git_repository: https://github.com/coderanger/berkshelf-api.git
+      proxy:
+        hostname: localhost
+- name: apache-proxy
+  run_list:
+  - recipe[apache2]
+  - recipe[berkshelf-api]
+  attributes:
+    berkshelf-api:
+      git_repository: https://github.com/coderanger/berkshelf-api.git
+      proxy:
+        hostname: localhost

@@ -22,6 +22,7 @@ default['berkshelf-api']['version'] = 'master'
 default['berkshelf-api']['port'] = 26200
 default['berkshelf-api']['user'] = 'berkshelf'
 default['berkshelf-api']['group'] = 'berkshelf'
+default['berkshelf-api']['git_repository'] = 'https://github.com/berkshelf/berkshelf-api.git'
 default['berkshelf-api']['ruby_version'] = '2.0.0-p353'
 default['berkshelf-api']['config'] = {}
 default['berkshelf-api']['opscode_url'] = 'http://cookbooks.opscode.com/api/v1'

@@ -28,7 +28,7 @@ class Chef
     attribute(:group, kind_of: String, default: lazy { node['berkshelf-api']['group'] })
     attribute(:ruby_version, kind_of: String, default: lazy { node['berkshelf-api']['ruby_version'] })
     attribute(:install_path, kind_of: String, default: lazy { node['berkshelf-api']['install_path'] })
-    attribute(:install_from_git, equal_to: [true, false], default: lazy { !version.match(/^\d+(\.\d+(\.\d+)?)?$/) })
+    attribute(:git_repository, kind_of: [String, FalseClass], default: lazy { version.match(/^\d+(\.\d+(\.\d+)?)?$/) ? false : node['berkshelf-api']['git_repository'] })
     attribute(:config, option_collector: true)
 
     def config_path
@@ -36,7 +36,7 @@ class Chef
     end
 
     def binary_path
-      if install_from_git
+      if git_repository
         ::File.join(install_path, 'vendor', 'bin', 'berks-api')
       else
         'berks-api'
@@ -148,7 +148,7 @@ class Chef
     end
 
     def install_berkshelf_api
-      if new_resource.install_from_git
+      if new_resource.git_repository
         install_from_git
       else
         install_from_gems
@@ -172,19 +172,20 @@ class Chef
       end
 
       git new_resource.install_path do
-        repository 'https://github.com/berkshelf/berkshelf-api.git'
+        repository new_resource.git_repository
         revision new_resource.version
       end
 
       rbenv_gem 'bundler' do
         ruby_version new_resource.ruby_version
+        action :upgrade
       end
 
       # For use in the only_if below
       r = new_resource
-      execute 'berks-api-bundle-install' do
+      rbenv_execute 'berks-api-bundle-install' do
+        ruby_version new_resource.ruby_version
         cwd new_resource.install_path
-        environment 'RBENV_ROOT' => node['rbenv']['root_path']
         command "bundle install --binstubs=vendor/bin --without development test"
         only_if do
           gemfile = ::File.join(r.install_path, 'Gemfile')
@@ -220,6 +221,7 @@ class Chef
           @service_resource = runit_service 'berkshelf-api' do
             action :enable
             options new_resource: new_resource
+            sv_timeout 600 # It can be slow while the cache is loading
           end
         end
       end

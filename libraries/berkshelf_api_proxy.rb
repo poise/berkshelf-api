@@ -161,6 +161,7 @@ class Chef
   class Provider::BerkshelfApiProxy::Apache < Provider::BerkshelfApiProxy
     def install_server
       include_recipe 'apache2'
+      include_recipe 'apache2::mod_rewrite'
       include_recipe 'apache2::mod_ssl' if new_resource.ssl_enabled
 
       apache_module 'proxy'
