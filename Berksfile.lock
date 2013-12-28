@@ -1,0 +1,61 @@
+{
+  "dependencies": {
+    "berkshelf-api": {
+      "locked_version": "1.0.0",
+      "path": "."
+    },
+    "poise": {
+      "locked_version": "1.0.1",
+      "git": "git://github.com/poise/poise.git",
+      "ref": "188b850ef3b0f78288592d9c21e598c8fe03205b"
+    },
+    "apt": {
+      "locked_version": "2.3.4"
+    },
+    "nginx": {
+      "locked_version": "2.2.0"
+    },
+    "apache2": {
+      "locked_version": "1.8.14"
+    },
+    "git": {
+      "locked_version": "2.9.0"
+    },
+    "rbenv": {
+      "locked_version": "1.7.1"
+    },
+    "runit": {
+      "locked_version": "1.5.3"
+    },
+    "bluepill": {
+      "locked_version": "2.3.1"
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "ohai": {
+      "locked_version": "1.1.12"
+    },
+    "yum": {
+      "locked_version": "3.0.2"
+    },
+    "yum-epel": {
+      "locked_version": "0.2.0"
+    },
+    "dmg": {
+      "locked_version": "2.1.2"
+    },
+    "windows": {
+      "locked_version": "1.12.4"
+    },
+    "rsyslog": {
+      "locked_version": "1.10.2"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "powershell": {
+      "locked_version": "1.1.2"
+    }
+  }
+}

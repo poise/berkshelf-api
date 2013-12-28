@@ -1,0 +1,38 @@
+#
+# Author:: Noah Kantrowitz <noah@coderanger.net>
+#
+# Copyright 2013, Balanced, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+default['berkshelf-api']['path'] = '/etc/berkshelf'
+default['berkshelf-api']['install_path'] = '/opt/berkshelf' # For git installs
+default['berkshelf-api']['version'] = 'master'
+default['berkshelf-api']['port'] = 26200
+default['berkshelf-api']['user'] = 'berkshelf'
+default['berkshelf-api']['group'] = 'berkshelf'
+default['berkshelf-api']['ruby_version'] = '2.0.0-p353'
+default['berkshelf-api']['config'] = {}
+default['berkshelf-api']['opscode_url'] = 'http://cookbooks.opscode.com/api/v1'
+
+default['berkshelf-api']['proxy']['enabled'] = node['recipes'].include?('nginx') || node['recipes'].include?('apache2')
+default['berkshelf-api']['proxy']['listen_ports'] = [80]
+default['berkshelf-api']['proxy']['hostname'] = nil # node['fqdn']
+default['berkshelf-api']['proxy']['ssl_enabled'] = false
+default['berkshelf-api']['proxy']['ssl_redirect_http'] = true
+default['berkshelf-api']['proxy']['ssl_listen_ports'] = [443]
+default['berkshelf-api']['proxy']['ssl_path'] = nil # node['berkshelf-api']['path']}/ssl
+default['berkshelf-api']['proxy']['cert_path'] = nil # node['berkshelf-api']['proxy']['ssl_path']/berkshelf-api.pem
+default['berkshelf-api']['proxy']['key_path'] = nil # node['berkshelf-api']['proxy']['ssl_path']/berkshelf-api.key
+default['berkshelf-api']['proxy']['provider'] = nil # Auto-detects based on available cookbooks

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+export RBENV_ROOT=<%= node[:rbenv][:root] %>
+export RBENV_VERSION=<%= @options[:new_resource].ruby_version %>
+export PATH=<%= node[:rbenv][:root] %>/shims:$PATH
+export HOME=<%= @options[:new_resource].path %>
+
+exec 2>&1
+exec <%= @options[:new_resource].binary_path %> -p <%= @options[:new_resource].port %> -c <%= @options[:new_resource].config_path %>
