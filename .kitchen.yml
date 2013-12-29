@@ -15,16 +15,12 @@ suites:
 - name: default
   run_list:
   - recipe[berkshelf-api]
-  attributes:
-    berkshelf-api:
-      git_repository: https://github.com/coderanger/berkshelf-api.git
 - name: nginx-proxy
   run_list:
   - recipe[nginx]
   - recipe[berkshelf-api]
   attributes:
     berkshelf-api:
-      git_repository: https://github.com/coderanger/berkshelf-api.git
       proxy:
         hostname: localhost
 - name: apache-proxy
@@ -33,6 +29,31 @@ suites:
   - recipe[berkshelf-api]
   attributes:
     berkshelf-api:
-      git_repository: https://github.com/coderanger/berkshelf-api.git
       proxy:
         hostname: localhost
+- name: nginx-https-proxy
+  run_list:
+  - recipe[nginx]
+  - recipe[berkshelf-api_test::certificate]
+  - recipe[berkshelf-api]
+  attributes:
+    berkshelf-api:
+      proxy:
+        hostname: localhost
+        ssl_enabled: true
+- name: apache-https-proxy
+  run_list:
+  - recipe[apache2]
+  - recipe[berkshelf-api_test::certificate]
+  - recipe[berkshelf-api]
+  attributes:
+    berkshelf-api:
+      proxy:
+        hostname: localhost
+        ssl_enabled: true
+- name: gem-install
+  run_list:
+  - recipe[berkshelf-api]
+  attributes:
+    berkshelf-api:
+      version: 1.1.0

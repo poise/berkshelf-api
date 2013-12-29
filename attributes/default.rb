@@ -27,13 +27,17 @@ default['berkshelf-api']['ruby_version'] = '2.0.0-p353'
 default['berkshelf-api']['config'] = {}
 default['berkshelf-api']['opscode_url'] = 'http://cookbooks.opscode.com/api/v1'
 
-default['berkshelf-api']['proxy']['enabled'] = node['recipes'].include?('nginx') || node['recipes'].include?('apache2')
+default['berkshelf-api']['proxy']['enabled'] = !!Chef::Resource::BerkshelfApiProxy.default_provider(node)
 default['berkshelf-api']['proxy']['listen_ports'] = [80]
 default['berkshelf-api']['proxy']['hostname'] = nil # node['fqdn']
 default['berkshelf-api']['proxy']['ssl_enabled'] = false
 default['berkshelf-api']['proxy']['ssl_redirect_http'] = true
 default['berkshelf-api']['proxy']['ssl_listen_ports'] = [443]
 default['berkshelf-api']['proxy']['ssl_path'] = nil # node['berkshelf-api']['path']}/ssl
-default['berkshelf-api']['proxy']['cert_path'] = nil # node['berkshelf-api']['proxy']['ssl_path']/berkshelf-api.pem
-default['berkshelf-api']['proxy']['key_path'] = nil # node['berkshelf-api']['proxy']['ssl_path']/berkshelf-api.key
+default['berkshelf-api']['proxy']['ssl_cert_path'] = nil # node['berkshelf-api']['proxy']['ssl_path']/berkshelf-api.pem
+default['berkshelf-api']['proxy']['ssl_key_path'] = nil # node['berkshelf-api']['proxy']['ssl_path']/berkshelf-api.key
 default['berkshelf-api']['proxy']['provider'] = nil # Auto-detects based on available cookbooks
+
+# ಠ_ಠ ಠ_ಠ ಠ_ಠ ಠ_ಠ ಠ_ಠ
+override['apache']['default_site_enabled'] = false
+override['nginx']['default_site_enabled'] = false

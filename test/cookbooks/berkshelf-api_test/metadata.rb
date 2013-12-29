@@ -16,15 +16,6 @@
 # limitations under the License.
 #
 
-source 'https://api.berkshelf.com'
+name 'berkshelf-api_test'
 
-metadata
-
-cookbook 'poise', github: 'poise/poise'
-
-group :test do
-  cookbook 'apache2'
-  cookbook 'apt'
-  cookbook 'berkshelf-api_test', path: './test/cookbooks/berkshelf-api_test'
-  cookbook 'nginx'
-end
+depends 'berkshelf-api'
