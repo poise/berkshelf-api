@@ -16,11 +16,10 @@
 # limitations under the License.
 #
 
-source 'https://rubygems.org'
+require 'spec_helper'
 
-gem 'test-kitchen', github: 'test-kitchen/test-kitchen'
-gem 'berkshelf', github: 'berkshelf/berkshelf'
-gem 'kitchen-rackspace', github: 'RoboticCheese/kitchen-rackspace'
-gem 'chef', github: 'opscode/chef'
-gem 'foodcritic', '~> 3.0'
-gem 'chefspec', '~> 3.0'
+describe 'berkshelf-api' do
+  it 'installs foo' do
+    #expect(chef_run).to install_package('foo')
+  end
+end

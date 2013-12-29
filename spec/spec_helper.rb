@@ -16,11 +16,11 @@
 # limitations under the License.
 #
 
-source 'https://rubygems.org'
+require 'chefspec'
+require 'chefspec/berkshelf'
 
-gem 'test-kitchen', github: 'test-kitchen/test-kitchen'
-gem 'berkshelf', github: 'berkshelf/berkshelf'
-gem 'kitchen-rackspace', github: 'RoboticCheese/kitchen-rackspace'
-gem 'chef', github: 'opscode/chef'
-gem 'foodcritic', '~> 3.0'
-gem 'chefspec', '~> 3.0'
+RSpec.configure do |c|
+  c.before do
+    @chef_run = ChefSpec::Runner.new(step_into: %w{berkshelf_api}).converge(described_recipe)
+  end
+end
