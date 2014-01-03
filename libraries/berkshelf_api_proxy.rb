@@ -137,7 +137,10 @@ class Chef
 
     def configure_server
       # Only set the default source if nothing is currently set
-      new_resource.source(default_source) if !new_resource.source && !new_resource.content(nil, true)
+      if !new_resource.source && !new_resource.content(nil, true)
+        new_resource.source(default_source)
+        new_resource.cookbook('berkshelf-api')
+      end
       file config_path do
         content new_resource.content
         owner 'root'
