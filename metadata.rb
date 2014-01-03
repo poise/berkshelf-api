@@ -25,7 +25,8 @@ license 'Apache 2.0'
 description 'Installs a Berkshelf API server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
-depends 'poise'
+depends 'build-essential'
 depends 'git'
-depends 'rbenv'
+depends 'poise'
+depends 'poise-ruby'
 depends 'runit'

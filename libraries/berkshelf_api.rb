@@ -26,7 +26,6 @@ class Chef
     attribute(:port, kind_of: [String, Integer], default: lazy { node['berkshelf-api']['port'] })
     attribute(:user, kind_of: String, default: lazy { node['berkshelf-api']['user'] })
     attribute(:group, kind_of: String, default: lazy { node['berkshelf-api']['group'] })
-    attribute(:ruby_version, kind_of: String, default: lazy { node['berkshelf-api']['ruby_version'] })
     attribute(:install_path, kind_of: String, default: lazy { node['berkshelf-api']['install_path'] })
     attribute(:git_repository, kind_of: [String, FalseClass], default: lazy { version.match(/^\d+(\.\d+(\.\d+)?)?$/) ? false : node['berkshelf-api']['git_repository'] })
     attribute(:config, option_collector: true)
@@ -121,10 +120,8 @@ class Chef
     end
 
     def install_ruby
-      # Sigh, this really shouldn't be in here, but for now its a thing
-      include_recipe 'rbenv'
-      include_recipe 'rbenv::ruby_build'
-      rbenv_ruby new_resource.ruby_version
+      include_recipe 'build-essential' # GCC needed for mutli-json gem et al
+      poise_ruby 'ruby-210'
     end
 
     def create_home_dir
@@ -156,9 +153,10 @@ class Chef
     end
 
     def install_from_gems
-      rbenv_gem 'berkshelf-api' do
+      gem_package 'berkshelf-api' do
+        gem_binary '/opt/ruby-210/bin/gem'
+        options '--bindir /opt/ruby-210/bin'
         version new_resource.version
-        ruby_version new_resource.ruby_version
       end
     end
 
@@ -176,17 +174,18 @@ class Chef
         revision new_resource.version
       end
 
-      rbenv_gem 'bundler' do
-        ruby_version new_resource.ruby_version
+      gem_package 'bundler' do
+        gem_binary '/opt/ruby-210/bin/gem'
+        options '--bindir /opt/ruby-210/bin'
         action :upgrade
       end
 
       # For use in the only_if below
       r = new_resource
-      rbenv_execute 'berks-api-bundle-install' do
-        ruby_version new_resource.ruby_version
+      execute 'berks-api-bundle-install' do
         cwd new_resource.install_path
-        command "bundle install --binstubs=vendor/bin --without development test"
+        command "/opt/ruby-210/bin/bundle install --binstubs=vendor/bin --without development test"
+        environment 'PATH' => "/opt/ruby-210/bin:#{ENV['PATH']}"
         only_if do
           gemfile = ::File.join(r.install_path, 'Gemfile')
           gemfile_lock = ::File.join(r.install_path, 'Gemfile.lock')

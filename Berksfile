@@ -21,6 +21,7 @@ source 'https://api.berkshelf.com'
 metadata
 
 cookbook 'poise', github: 'poise/poise'
+cookbook 'poise-ruby', github: 'poise/poise-ruby'
 
 group :test do
   cookbook 'apache2'

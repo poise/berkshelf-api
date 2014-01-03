@@ -37,7 +37,6 @@ Attributes
 * `node['berkshelf-api']['group']` – Group to run as. *(default: berkshelf)*
 * `node['berkshelf-api']['install_path']` – The directory to clone into if installing from git. *(default: /opt/berkshelf)*
 * `node['berkshelf-api']['git_repository']` – URI to clone from if installing from git. *(default: https://github.com/berkshelf/berkshelf-api.git)*
-* `node['berkshelf-api']['ruby_version']` – Ruby version to install with. *(default: 2.0.0-p353)*
 * `node['berkshelf-api']['config']` – A hash of configuration data to be added to config.json. *(default: {})*
 * `node['berkshelf-api']['opscode_url']` – URL to use for the default Community Site endpoint. *(default: https://community.opscode.com/api/v1)*
 * `node['berkshelf-api']['proxy']['enabled']` – Install an HTTP proxy. *(default: if the apache2 or nginx recipe is in the run list)*
@@ -77,7 +76,6 @@ default to the node attribute if not specified.
 * `group` – Group to run as. *(default: node['berkshelf-api']['group'])*
 * `install_path` – The directory to clone into if installing from git. *(default: node['berkshelf-api']['install_path'])*
 * `git_repository` – URI to clone from if installing from git. *(default: node['berkshelf-api']['git_repository'] if version is a git reference)*
-* `ruby_version` – Ruby version to install with. *(default: node['berkshelf-api']['ruby_version'])*
 * `config` – A hash or block of configuration data to be added to config.json.
 
 ### berkshelf_api_opscode_endpoint

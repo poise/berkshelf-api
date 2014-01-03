@@ -1,8 +1,6 @@
 #!/bin/sh
 
-export RBENV_ROOT=<%= node[:rbenv][:root] %>
-export RBENV_VERSION=<%= @options[:new_resource].ruby_version %>
-export PATH=<%= node[:rbenv][:root] %>/shims:$PATH
+export PATH=/opt/ruby-210/bin:$PATH
 export HOME=<%= @options[:new_resource].path %>
 
 exec 2>&1
