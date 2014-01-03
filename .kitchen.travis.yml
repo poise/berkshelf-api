@@ -1,3 +1,4 @@
 ---
 driver:
   name: rackspace
+  flavor_id: performance1-2
