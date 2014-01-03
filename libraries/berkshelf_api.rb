@@ -72,6 +72,12 @@ class Chef
         instance_exec(&block) if block
       end
     end
+
+    def proxy(&block)
+      berkshelf_api_proxy '' do
+        instance_exec(&block) if block
+      end
+    end
   end
 
   class Provider::BerkshelfApi < Provider

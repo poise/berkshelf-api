@@ -19,5 +19,5 @@
 berkshelf_api node['berkshelf-api']['path'] do
   opscode_endpoint
   auto_chef_server_endpoint unless Chef::Config[:solo]
-  berkshelf_api_proxy '' if node['berkshelf-api']['proxy']['enabled']
+  proxy if node['berkshelf-api']['proxy']['enabled']
 end
