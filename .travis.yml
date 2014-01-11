@@ -9,4 +9,4 @@ bundler_args: --deployment --binstubs
 script:
 - ./bin/foodcritic -f any .
 - ssh-keygen -f ~/.ssh/id_rsa -b 768 -P ''
-- ./bin/kitchen test -d always -p
+- ./bin/kitchen test -d always -p >/dev/null
