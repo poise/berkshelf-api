@@ -4,6 +4,7 @@ driver:
 
 provisioner:
   name: chef_solo
+  log_file: /dev/null
 
 platforms:
   - name: ubuntu-12.04
