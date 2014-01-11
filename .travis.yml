@@ -7,6 +7,6 @@ env:
   - secure: FsSJli7kgW3duTUsoSgjSexISAI8zBfvwRAJeY6YNiehc8iv4WURTIvsml7uYzGdaf2ctaayQHc6OtyAh6oTNr9EYFvhroUEC8X4lRHOndg/u0hj2HV3yH/mwwfFg54erBiXWVpAeX/xLT6OIWJ9/mIIzlWZxgxKzhx5gA6GL0U=
 bundler_args: --deployment --binstubs
 script:
-- ./bin/foodcritic -f any .
+- ./bin/foodcritic -f any --tags '~FC007' --tags '~FC023' .
 - ssh-keygen -f ~/.ssh/id_rsa -b 768 -P ''
 - ./bin/kitchen test -d always -p
