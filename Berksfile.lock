@@ -12,7 +12,7 @@
     "poise-ruby": {
       "locked_version": "1.0.0",
       "git": "git://github.com/poise/poise-ruby.git",
-      "ref": "4a729a3926bc6869e095cacb9ef4cab9c40b1c53"
+      "ref": "9007ad9ce0c566780ac3b989c1c6355bb2161bbc"
     },
     "apache2": {
       "locked_version": "1.8.14"
