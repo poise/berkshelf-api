@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+- 2.0.0
+env:
+  global:
+  - KITCHEN_LOCAL_YAML=.kitchen.travis.yml
+  - secure: LNieamIuwKv1Ppf9lXJHXkstsvGKQOngwArl6PLC5v4JIUmWvT955JklnJjIOTyP1c/7lw837l9KEI8poiQ+7RfWyoBeDAT6u91NvMK/abd0Ti/68kFy1+ovrvCqRkyahIeNGblZUtvHPbFJWfCOA9JNBO7Tp/uHuRapVTBGK0s=
+bundler_args: --deployment --binstubs
+script:
+- ./bin/foodcritic -f any .
+- ssh-keygen -f ~/.ssh/id_rsa -b 768 -P ''
+- ./bin/kitchen test -d always -p
