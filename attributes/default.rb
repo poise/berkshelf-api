@@ -25,7 +25,7 @@ default['berkshelf-api']['group'] = 'berkshelf'
 default['berkshelf-api']['git_repository'] = 'https://github.com/berkshelf/berkshelf-api.git'
 default['berkshelf-api']['ruby_version'] = '2.0.0-p353'
 default['berkshelf-api']['config'] = {}
-default['berkshelf-api']['opscode_url'] = 'https://community.opscode.com/api/v1'
+default['berkshelf-api']['opscode_url'] = 'http://community.opscode.com/api/v1'
 
 default['berkshelf-api']['proxy']['enabled'] = !!Chef::Resource::BerkshelfApiProxy.default_provider(node)
 default['berkshelf-api']['proxy']['listen_ports'] = [80]
