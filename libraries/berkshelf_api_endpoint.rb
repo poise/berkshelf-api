@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 
+require 'uri'
+
 require File.expand_path('../berkshelf_api', __FILE__)
 
 class Chef
@@ -46,9 +48,12 @@ class Chef
     attribute(:url, name_attribute: true)
     attribute(:client_name, kind_of: String, required: true)
     attribute(:client_key, kind_of: String, required: true)
+    attribute(:client_key_path, kind_of: String, default: lazy { default_client_key_path })
 
-    def client_key_path
-      ::File.join(parent.path, 'client.pem')
+    def default_client_key_path
+      uri = URI.parse(url)
+      key_file = "%s_%s_%s.pem" % uri.scheme, uri.host, uri.port
+      ::File.join(parent.path, key_file)
     end
 
     def endpoint_data
