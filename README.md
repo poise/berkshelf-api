@@ -19,6 +19,7 @@ Apply the following role to your server (making sure both cookbooks are availabl
   },
   "chef_type": "role",
   "run_list": [
+      "recipe[poise-ruby]",
       "recipe[nginx]",
       "recipe[berkshelf-api]",
   ],
@@ -26,6 +27,9 @@ Apply the following role to your server (making sure both cookbooks are availabl
   }
 }
 ```
+
+poise-ruby is optional; if you have another way of installing ruby, just set node['berkshelf-api']['ruby']['bin_dir'] .
+
 
 Attributes
 ----------
@@ -35,6 +39,7 @@ Attributes
 * `node['berkshelf-api']['port']` – Port to listen on. *(default: 26200)*
 * `node['berkshelf-api']['user']` – User to run as. *(default: berkshelf)*
 * `node['berkshelf-api']['group']` – Group to run as. *(default: berkshelf)*
+* `node['berkshelf-api']['ruby']['bin_dir']` – Where to find gem, and where to install binaries. *(default: /opt/ruby-210/bin)*
 * `node['berkshelf-api']['install_path']` – The directory to clone into if installing from git. *(default: /opt/berkshelf)*
 * `node['berkshelf-api']['git_repository']` – URI to clone from if installing from git. *(default: https://github.com/berkshelf/berkshelf-api.git)*
 * `node['berkshelf-api']['config']` – A hash of configuration data to be added to config.json. *(default: {})*

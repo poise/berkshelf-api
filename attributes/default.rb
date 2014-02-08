@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Author:: Noah Kantrowitz <noah@coderanger.net>
 #
@@ -26,6 +27,8 @@ default['berkshelf-api']['git_repository'] = 'https://github.com/berkshelf/berks
 default['berkshelf-api']['ruby_version'] = '2.0.0-p353'
 default['berkshelf-api']['config'] = {}
 default['berkshelf-api']['opscode_url'] = 'http://community.opscode.com/api/v1'
+
+default['berkshelf-api']['ruby']['bin_dir'] = '/opt/ruby-210/bin'
 
 default['berkshelf-api']['proxy']['enabled'] = !!Chef::Resource::BerkshelfApiProxy.default_provider(node)
 default['berkshelf-api']['proxy']['listen_ports'] = [80]
