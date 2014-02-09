@@ -52,7 +52,7 @@ class Chef
 
     def default_client_key_path
       uri = URI.parse(url)
-      key_file = "%s_%s_%s.pem" % uri.scheme, uri.host, uri.port
+      key_file = "%s_%s_%s.pem" % [ uri.scheme, uri.host, uri.port ]
       ::File.join(parent.path, key_file)
     end
 
