@@ -219,7 +219,7 @@ class Chef
         subcontext_block do
           @service_resource = runit_service 'berkshelf-api' do
             action :enable
-            options new_resource: new_resource
+            options new_resource: new_resource, ruby_bin: node['berkshelf-api']['ruby']['bin_dir']
             sv_timeout 600 # It can be slow while the cache is loading
           end
         end
