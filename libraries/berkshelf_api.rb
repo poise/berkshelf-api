@@ -28,7 +28,7 @@ class Chef
     attribute(:group, kind_of: String, default: lazy { node['berkshelf-api']['group'] })
     attribute(:install_path, kind_of: String, default: lazy { node['berkshelf-api']['install_path'] })
     attribute(:log_path, kind_of: String, default: lazy { node['berkshelf-api']['log_path'] } )
-    attribute(:log_verbosity, kind_of: String, equal_to: ['', '-d', '-v', '-q'], lazy { node['berkshelf-api']['log_verbosity'] })
+    attribute(:log_verbosity, kind_of: String, equal_to: ['', '-d', '-v', '-q'], default: lazy { node['berkshelf-api']['log_verbosity'] })
     attribute(:git_repository, kind_of: [String, FalseClass], default: lazy { version.match(/^\d+(\.\d+(\.\d+)?)?$/) ? false : node['berkshelf-api']['git_repository'] })
     attribute(:config, option_collector: true)
 
