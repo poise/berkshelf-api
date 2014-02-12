@@ -77,6 +77,9 @@ default to the node attribute if not specified.
 * `install_path` – The directory to clone into if installing from git. *(default: node['berkshelf-api']['install_path'])*
 * `git_repository` – URI to clone from if installing from git. *(default: node['berkshelf-api']['git_repository'] if version is a git reference)*
 * `config` – A hash or block of configuration data to be added to config.json.
+* `log_path` - Directory to write the runit service logs, relative to /etc/sv/berkshelf-api .  Default: ./main
+* `log_verbosity` - Which flag, if any, to pass to berks-api to control log verbosity; one of '', '-d','-v', or '-q'. Default: ''.
+
 
 ### berkshelf_api_opscode_endpoint
 

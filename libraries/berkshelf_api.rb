@@ -27,6 +27,8 @@ class Chef
     attribute(:user, kind_of: String, default: lazy { node['berkshelf-api']['user'] })
     attribute(:group, kind_of: String, default: lazy { node['berkshelf-api']['group'] })
     attribute(:install_path, kind_of: String, default: lazy { node['berkshelf-api']['install_path'] })
+    attribute(:log_path, kind_of: String, default: './main')
+    attribute(:log_verbosity, kind_of: String, default: '', equal_to: ['', '-d', '-v', '-q'])
     attribute(:git_repository, kind_of: [String, FalseClass], default: lazy { version.match(/^\d+(\.\d+(\.\d+)?)?$/) ? false : node['berkshelf-api']['git_repository'] })
     attribute(:config, option_collector: true)
 
