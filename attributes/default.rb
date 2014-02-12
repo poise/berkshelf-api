@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Author:: Noah Kantrowitz <noah@coderanger.net>
 #
@@ -18,6 +19,8 @@
 
 default['berkshelf-api']['path'] = '/etc/berkshelf'
 default['berkshelf-api']['install_path'] = '/opt/berkshelf' # For git installs
+default['berkshelf-api']['log_path'] = './main'
+default['berkshelf-api']['log_verbosity'] = ''
 default['berkshelf-api']['version'] = 'master'
 default['berkshelf-api']['port'] = 26200
 default['berkshelf-api']['user'] = 'berkshelf'

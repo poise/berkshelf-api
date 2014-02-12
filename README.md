@@ -33,6 +33,8 @@ Attributes
 * `node['berkshelf-api']['path']` – The directory to hold the configuration and cache. *(default: /etc/berkshelf)*
 * `node['berkshelf-api']['version']` – Version or git reference to install. *(default: master)*
 * `node['berkshelf-api']['port']` – Port to listen on. *(default: 26200)*
+* `node['berkshelf-api']['log_path']` – Directory for runit logs *(default: ./main, under /etc/sv/berkshelf-api)*
+* `node['berkshelf-api']['log_verbosity']` – Log verbosity flag, one of '', '-v', '-d', '-q'. *(default: '')*
 * `node['berkshelf-api']['user']` – User to run as. *(default: berkshelf)*
 * `node['berkshelf-api']['group']` – Group to run as. *(default: berkshelf)*
 * `node['berkshelf-api']['install_path']` – The directory to clone into if installing from git. *(default: /opt/berkshelf)*
@@ -77,8 +79,8 @@ default to the node attribute if not specified.
 * `install_path` – The directory to clone into if installing from git. *(default: node['berkshelf-api']['install_path'])*
 * `git_repository` – URI to clone from if installing from git. *(default: node['berkshelf-api']['git_repository'] if version is a git reference)*
 * `config` – A hash or block of configuration data to be added to config.json.
-* `log_path` - Directory to write the runit service logs, relative to /etc/sv/berkshelf-api .  Default: ./main
-* `log_verbosity` - Which flag, if any, to pass to berks-api to control log verbosity; one of '', '-d','-v', or '-q'. Default: ''.
+* `log_path` - Directory to write the runit service logs, relative to /etc/sv/berkshelf-api .  *(default: node['berkshelf-api']['log_path'])*
+* `log_verbosity` - Which flag, if any, to pass to berks-api to control log verbosity; one of '', '-d','-v', or '-q'. *(default: node['berkshelf-api']['log_verbosity'])*
 
 
 ### berkshelf_api_opscode_endpoint
