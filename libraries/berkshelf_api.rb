@@ -88,7 +88,6 @@ class Chef
         notifying_block do
           create_group
           create_user
-          install_ruby
           create_home_dir
           install_libarchive
           install_berkshelf_api
@@ -125,11 +124,6 @@ class Chef
       end
     end
 
-    def install_ruby
-      include_recipe 'build-essential' # GCC needed for mutli-json gem et al
-      poise_ruby 'ruby-210'
-    end
-
     def create_home_dir
       directory new_resource.path do
         owner new_resource.user
@@ -160,8 +154,8 @@ class Chef
 
     def install_from_gems
       gem_package 'berkshelf-api' do
-        gem_binary '/opt/ruby-210/bin/gem'
-        options '--bindir /opt/ruby-210/bin'
+        gem_binary node['berkshelf-api']['ruby']['bin_dir'] + '/gem'
+        options '--bindir ' + node['berkshelf-api']['ruby']['bin_dir']
         version new_resource.version
       end
     end
@@ -181,8 +175,8 @@ class Chef
       end
 
       gem_package 'bundler' do
-        gem_binary '/opt/ruby-210/bin/gem'
-        options '--bindir /opt/ruby-210/bin'
+        gem_binary node['berkshelf-api']['ruby']['bin_dir'] + '/gem'
+        options '--bindir ' + node['berkshelf-api']['ruby']['bin_dir']
         action :upgrade
       end
 
@@ -190,8 +184,8 @@ class Chef
       r = new_resource
       execute 'berks-api-bundle-install' do
         cwd new_resource.install_path
-        command "/opt/ruby-210/bin/bundle install --binstubs=vendor/bin --without development test"
-        environment 'PATH' => "/opt/ruby-210/bin:#{ENV['PATH']}"
+        command "#{node['berkshelf-api']['ruby']['bin_dir']}/bundle install --binstubs=vendor/bin --without development test"
+        environment 'PATH' => "#{node['berkshelf-api']['ruby']['bin_dir']}:#{ENV['PATH']}"
         only_if do
           gemfile = ::File.join(r.install_path, 'Gemfile')
           gemfile_lock = ::File.join(r.install_path, 'Gemfile.lock')
@@ -225,7 +219,7 @@ class Chef
         subcontext_block do
           @service_resource = runit_service 'berkshelf-api' do
             action :enable
-            options new_resource: new_resource
+            options new_resource: new_resource, ruby_bin: node['berkshelf-api']['ruby']['bin_dir']
             sv_timeout 600 # It can be slow while the cache is loading
           end
         end

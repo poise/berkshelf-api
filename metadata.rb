@@ -28,5 +28,5 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 depends 'build-essential'
 depends 'git'
 depends 'poise'
-depends 'poise-ruby'
+suggests 'poise-ruby'
 depends 'runit'
