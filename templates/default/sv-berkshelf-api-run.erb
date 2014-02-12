@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export PATH=/opt/ruby-210/bin:$PATH
+export PATH=<%= @options[:ruby_bin] %>:$PATH
 export HOME=<%= @options[:new_resource].path %>
 
 exec 2>&1
