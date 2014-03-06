@@ -226,6 +226,7 @@ class Chef
           @service_resource = runit_service 'berkshelf-api' do
             action :enable
             options new_resource: new_resource
+            cookbook 'berkshelf-api'
             sv_timeout 600 # It can be slow while the cache is loading
           end
         end
