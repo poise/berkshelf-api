@@ -61,10 +61,10 @@ class Chef
       end
     end
 
-    def github_endpoint(organization, api_token=nil, &block)
+    def github_endpoint(organization, access_token=nil, &block)
       berkshelf_api_github_endpoint organization do
         organization organization
-        api_token api_token
+        access_token access_token
         instance_exec(&block) if block
       end
     end
