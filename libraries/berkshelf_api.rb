@@ -216,7 +216,7 @@ class Chef
         owner 'root' # Don't give berks-api write access to its own config
         group new_resource.group
         mode '640'
-        content JSONCompat.to_json(config)
+        content JSONCompat.to_json_pretty(config)
       end
     end
 
