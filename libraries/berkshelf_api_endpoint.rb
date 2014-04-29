@@ -83,6 +83,19 @@ class Chef
     end
   end
 
+  class Resource::BerkshelfApiFileStoreEndpoint < Resource::BerkshelfApiEndpoint
+    attribute(:path, name_attribute: true)
+
+    def endpoint_data
+      {
+        type: 'file_store',
+        options: {
+          path: path,
+        },
+      }
+    end
+  end
+
   class Resource::BerkshelfApiAutoChefServerEndpoint < Resource::BerkshelfApiEndpoint
     def endpoint_data
       {
@@ -128,6 +141,9 @@ class Chef
   end
 
   class Provider::BerkshelfApiGithubEndpoint < Provider::BerkshelfApiEndpoint
+  end
+
+  class Provider::BerkshelfApiFileStoreEndpoint < Provider::BerkshelfApiEndpoint
   end
 
   class Provider::BerkshelfApiAutoChefServerEndpoint < Provider::BerkshelfApiEndpoint
