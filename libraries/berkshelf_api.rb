@@ -38,7 +38,7 @@ class Chef
 
     def binary_path
       if git_repository
-        ::File.join(install_path, 'vendor', 'bin', 'berks-api')
+        node['berkshelf-api']['berks-api_path']
       else
         'berks-api'
       end
