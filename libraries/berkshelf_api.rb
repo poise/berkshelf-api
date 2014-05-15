@@ -197,7 +197,7 @@ class Chef
         only_if do
           gemfile = ::File.join(r.install_path, 'Gemfile')
           gemfile_lock = ::File.join(r.install_path, 'Gemfile.lock')
-          !::File.exists?(gemfile_lock) || ::File.mtime(gemfile) > ::File.mtime(gemfile_lock)
+          !::File.exists?(gemfile_lock) || ::File.mtime(gemfile) >= ::File.mtime(gemfile_lock)
         end
       end
     end
