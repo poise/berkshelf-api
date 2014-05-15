@@ -229,8 +229,8 @@ class Chef
             action :enable
             options new_resource: new_resource
             cookbook 'berkshelf-api'
-            owner new_resource.user
-            group new_resource.group
+          owner "berkshelf"
+          group "berkshelf"
             sv_timeout 600 # It can be slow while the cache is loading
           end
         end
