@@ -4,4 +4,4 @@ export PATH=/opt/ruby-210/bin:$PATH
 export HOME=<%= @options[:new_resource].path %>
 
 exec 2>&1
-exec <%= @options[:new_resource].binary_path %> <%= @options[:new_resource].log_verbosity %> -p <%= @options[:new_resource].port %> -c <%= @options[:new_resource].config_path %>
+exec chpst -u <%= @options[:new_resource].user %> <%= @options[:new_resource].binary_path %> <%= @options[:new_resource].log_verbosity %> -p <%= @options[:new_resource].port %> -c <%= @options[:new_resource].config_path %>
