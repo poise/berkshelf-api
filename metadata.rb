@@ -17,6 +17,7 @@
 #
 
 name 'berkshelf-api'
+
 version '1.0.1'
 
 maintainer 'Noah Kantrowitz'

@@ -192,7 +192,7 @@ GEM
       unf_ext
     unf_ext (0.0.6)
     vagrant-wrapper (1.2.1.1)
-    varia_model (0.3.0)
+    varia_model (0.3.2)
       buff-extensions (~> 0.2)
       hashie (>= 2.0.2)
     yajl-ruby (1.1.0)
