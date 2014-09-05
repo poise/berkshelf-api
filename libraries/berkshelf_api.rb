@@ -38,15 +38,15 @@ class Chef
 
     def binary_path
       if git_repository
-        ::File.join(install_path, 'vendor', 'bin', 'berks-api')
+        node['berkshelf-api']['berks-api_path']
       else
         'berks-api'
       end
     end
 
     # Helpers to configure endpoints
-    def opscode_endpoint(url = node['berkshelf-api']['opscode_url'], &block)
-      berkshelf_api_opscode_endpoint url do
+    def supermarket_endpoint(url = node['berkshelf-api']['supermarket_url'], &block)
+      berkshelf_api_supermarket_endpoint url do
         url url
         instance_exec(&block) if block
       end
@@ -197,7 +197,7 @@ class Chef
         only_if do
           gemfile = ::File.join(r.install_path, 'Gemfile')
           gemfile_lock = ::File.join(r.install_path, 'Gemfile.lock')
-          !::File.exists?(gemfile_lock) || ::File.mtime(gemfile) > ::File.mtime(gemfile_lock)
+          !::File.exists?(gemfile_lock) || ::File.mtime(gemfile) >= ::File.mtime(gemfile_lock)
         end
       end
     end
@@ -229,6 +229,8 @@ class Chef
             action :enable
             options new_resource: new_resource
             cookbook 'berkshelf-api'
+          owner "berkshelf"
+          group "berkshelf"
             sv_timeout 600 # It can be slow while the cache is loading
           end
         end

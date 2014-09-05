@@ -40,7 +40,7 @@ Attributes
 * `node['berkshelf-api']['install_path']` – The directory to clone into if installing from git. *(default: /opt/berkshelf)*
 * `node['berkshelf-api']['git_repository']` – URI to clone from if installing from git. *(default: https://github.com/berkshelf/berkshelf-api.git)*
 * `node['berkshelf-api']['config']` – A hash of configuration data to be added to config.json. *(default: {})*
-* `node['berkshelf-api']['opscode_url']` – URL to use for the default Community Site endpoint. *(default: https://community.opscode.com/api/v1)*
+* `node['berkshelf-api']['supermarket_url']` – URL to use for the default Community Supermarket endpoint. *(default: https://supermarket.getchef.com)*
 * `node['berkshelf-api']['proxy']['enabled']` – Install an HTTP proxy. *(default: if the apache2 or nginx recipe is in the run list)*
 * `node['berkshelf-api']['proxy']['listen_ports']` – HTTP ports for the proxy. *(default: [80])*
 * `node['berkshelf-api']['proxy']['hostname']` – Server name for the proxy. *(default: node['fqdn'])*
@@ -63,7 +63,7 @@ The `berkshelf_api` resource defines a berkshelf-api server installation.
 berkshelf_api '/etc/berks' do
   version '1.1.0'
   config do
-    endpoints [{type: 'opscode'}]
+    endpoints [{type: 'supermarket'}]
   end
 end
 ```
@@ -83,21 +83,21 @@ default to the node attribute if not specified.
 * `log_verbosity` - Which flag, if any, to pass to berks-api to control log verbosity; one of '', '-d','-v', or '-q'. *(default: node['berkshelf-api']['log_verbosity'])*
 
 
-### berkshelf_api_opscode_endpoint
+### berkshelf_api_supermarket_endpoint
 
-The `berkshelf_api_opscode_endpoint` defines a community site endpoint for a
+The `berkshelf_api_supermarket_endpoint` defines a community site endpoint for a
 `berkshelf_api` resource.
 
 ```ruby
-berkshelf_api_opscode_endpoint 'https://community.opscode.com/api/v1'
+berkshelf_api_supermarket_endpoint 'https://supermarket.getchef.com'
 ```
 
 It can also be used via the shorter, nested syntax:
 
 ```ruby
 berkshelf_api '/etc/berks' do
-  opscode_endpoint # Defaults to node['berkshelf-api']['opscode_url'] if no URL is given
-  opscode_endpoint 'http://example.com/cookbooks'
+  supermarket_endpoint # Defaults to node['berkshelf-api']['supermarket_url'] if no URL is given
+  supermarket_endpoint 'https://supermarket.example.com'
 end
 ```
 
