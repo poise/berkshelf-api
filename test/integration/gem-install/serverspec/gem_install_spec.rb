@@ -46,7 +46,7 @@ end
 
 describe file('/etc/berkshelf/config.json') do
   it { should be_file }
-  its(:content) { should match(/"type":"opscode"/) }
+  its(:content) { should match(/"type":"supermarket"/) }
 end
 
 describe file('/opt/berkshelf') do

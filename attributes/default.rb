@@ -30,7 +30,7 @@ default['berkshelf-api']['git_repository'] = 'https://github.com/berkshelf/berks
 default['berkshelf-api']['berks-api_path'] = "#{node['berkshelf-api']['install_path']}/bin/berks-api"
 default['berkshelf-api']['ruby_version'] = '2.1.2'
 default['berkshelf-api']['config'] = {}
-default['berkshelf-api']['opscode_url'] = 'http://community.opscode.com/api/v1'
+default['berkshelf-api']['supermarket_url'] = 'https://supermarket.getchef.com'
 
 default['berkshelf-api']['proxy']['enabled'] = !!Chef::Resource::BerkshelfApiProxy.default_provider(node)
 default['berkshelf-api']['proxy']['listen_ports'] = [80]

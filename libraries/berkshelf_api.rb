@@ -45,8 +45,8 @@ class Chef
     end
 
     # Helpers to configure endpoints
-    def opscode_endpoint(url = node['berkshelf-api']['opscode_url'], &block)
-      berkshelf_api_opscode_endpoint url do
+    def supermarket_endpoint(url = node['berkshelf-api']['supermarket_url'], &block)
+      berkshelf_api_supermarket_endpoint url do
         url url
         instance_exec(&block) if block
       end

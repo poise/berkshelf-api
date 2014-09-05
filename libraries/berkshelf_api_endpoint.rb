@@ -31,15 +31,15 @@ class Chef
   end
 
 
-  class Resource::BerkshelfApiOpscodeEndpoint < Resource::BerkshelfApiEndpoint
+  class Resource::BerkshelfApiSupermarketEndpoint < Resource::BerkshelfApiEndpoint
     attribute(:url, name_attribute: true)
 
     def endpoint_data
       {
-        type: 'opscode',
+        type: 'supermarket',
         options: {
-          url: url,
-        },
+          url: url
+        }
       }
     end
   end
@@ -120,7 +120,7 @@ class Chef
     end
   end
 
-  class Provider::BerkshelfApiOpscodeEndpoint < Provider::BerkshelfApiEndpoint
+  class Provider::BerkshelfApiSupermarketEndpoint < Provider::BerkshelfApiEndpoint
   end
 
   class Provider::BerkshelfApiChefServerEndpoint < Provider::BerkshelfApiEndpoint
