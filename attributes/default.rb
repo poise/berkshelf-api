@@ -19,6 +19,7 @@
 
 default['berkshelf-api']['path'] = '/etc/berkshelf'
 default['berkshelf-api']['install_path'] = '/opt/berkshelf' # For git installs
+
 default['berkshelf-api']['log_path'] = './main'
 default['berkshelf-api']['log_verbosity'] = ''
 default['berkshelf-api']['version'] = 'master'
@@ -26,7 +27,8 @@ default['berkshelf-api']['port'] = 26200
 default['berkshelf-api']['user'] = 'berkshelf'
 default['berkshelf-api']['group'] = 'berkshelf'
 default['berkshelf-api']['git_repository'] = 'https://github.com/berkshelf/berkshelf-api.git'
-default['berkshelf-api']['ruby_version'] = '2.0.0-p353'
+default['berkshelf-api']['berks-api_path'] = "#{node['berkshelf-api']['install_path']}/bin/berks-api"
+default['berkshelf-api']['ruby_version'] = '2.1.2'
 default['berkshelf-api']['config'] = {}
 default['berkshelf-api']['opscode_url'] = 'http://community.opscode.com/api/v1'
 

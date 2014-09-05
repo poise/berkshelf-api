@@ -18,10 +18,8 @@
 
 source 'https://rubygems.org'
 
-gem 'test-kitchen', github: 'test-kitchen/test-kitchen'
-gem 'berkshelf', github: 'berkshelf/berkshelf', ref: 'f3e8a718b5867272b2a23cad4d119bec624238d0' # https://github.com/berkshelf/berkshelf/issues/978
-gem 'kitchen-rackspace', github: 'RoboticCheese/kitchen-rackspace'
-gem 'kitchen-vagrant'
+gem 'test-kitchen', '~> 1.2.1'
+gem 'berkshelf', '~> 3.1.5'
+gem 'kitchen-vagrant', '~> 0.15'
+gem 'foodcritic', '~> 4.0.0'
 gem 'vagrant-wrapper'
-gem 'foodcritic', '>= 3.0.3'
-gem 'chef', github: 'opscode/chef'

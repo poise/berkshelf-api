@@ -17,6 +17,7 @@
 #
 
 berkshelf_api node['berkshelf-api']['path'] do
+  version '2.1.0'
   opscode_endpoint
   auto_chef_server_endpoint unless Chef::Config[:solo]
   proxy if node['berkshelf-api']['proxy']['enabled']
