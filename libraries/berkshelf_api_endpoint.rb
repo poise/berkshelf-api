@@ -49,6 +49,7 @@ class Chef
     attribute(:client_name, kind_of: String, required: true)
     attribute(:client_key, kind_of: String, required: true)
     attribute(:client_key_path, kind_of: String, default: lazy { default_client_key_path })
+    attribute(:ssl_verify, equal_to: [true, false], default: true)
 
     def default_client_key_path
       uri = URI.parse(url)
@@ -63,6 +64,7 @@ class Chef
           url: url,
           client_name: client_name,
           client_key: client_key_path,
+          ssl_verify: ssl_verify,
         },
       }
     end
@@ -71,6 +73,8 @@ class Chef
   class Resource::BerkshelfApiGithubEndpoint < Resource::BerkshelfApiEndpoint
     attribute(:organization, name_attribute: true)
     attribute(:access_token, kind_of: String, required: true)
+    attribute(:ssl_verify, equal_to: [true, false], default: true)
+
 
     def endpoint_data
       {
@@ -78,6 +82,7 @@ class Chef
         options: {
           organization: organization,
           access_token: access_token,
+          ssl_verify: ssl_verify,
         },
       }
     end
@@ -97,6 +102,8 @@ class Chef
   end
 
   class Resource::BerkshelfApiAutoChefServerEndpoint < Resource::BerkshelfApiEndpoint
+    attribute(:ssl_verify, equal_to: [true, false], default: true)
+
     def endpoint_data
       {
         type: 'chef_server',
@@ -104,6 +111,7 @@ class Chef
           url: Chef::Config[:chef_server_url],
           client_name: node.name,
           client_key: Chef::Config[:client_key],
+          ssl_verify: ssl_verify,
         },
       }
     end
@@ -125,18 +133,28 @@ class Chef
 
   class Provider::BerkshelfApiChefServerEndpoint < Provider::BerkshelfApiEndpoint
     def action_enable
-      file new_resource.client_key_path do
-        owner new_resource.parent.user
-        group new_resource.parent.group
-        mode '600'
-        content new_resource.client_key
+      converge_by("install key for #{new_resource.client_name} at #{new_resource.client_key_path}") do
+        notifying_block do
+          file new_resource.client_key_path do
+            owner new_resource.parent.user
+            group new_resource.parent.group
+            mode '600'
+            content new_resource.client_key
+            sensitive true
+            notifies :restart, new_resource.parent
+          end
+        end
       end
     end
 
     def action_disable
-      r = action_enable
-      r.action(:remove)
-      r
+      converge_by("remove key for #{new_resource.client_name} from #{new_resource.client_key_path}") do
+        notifying_block do
+          r = action_enable
+          r.action(:remove)
+          r
+        end
+      end
     end
   end
 

@@ -17,7 +17,7 @@
 #
 
 name 'berkshelf-api'
-version '1.1.0'
+version '1.1.2'
 
 maintainer 'Noah Kantrowitz'
 maintainer_email 'noah@coderanger.net'

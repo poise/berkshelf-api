@@ -19,7 +19,7 @@
 class Chef
   class Resource::BerkshelfApi < Resource
     include Poise(container: true)
-    actions(:install, :uninstall)
+    actions(:install, :uninstall, :restart)
 
     attribute(:path, name_attribute: true)
     attribute(:version, kind_of: String, default: lazy { node['berkshelf-api']['version'] })
@@ -55,8 +55,8 @@ class Chef
     def chef_server_endpoint(url, client_name=nil, client_key=nil, &block)
       berkshelf_api_chef_server_endpoint url do
         url url
-        client_name client_name
-        client_key client_key
+        client_name client_name if client_name
+        client_key client_key if client_key
         instance_exec(&block) if block
       end
     end
@@ -64,7 +64,7 @@ class Chef
     def github_endpoint(organization, access_token=nil, &block)
       berkshelf_api_github_endpoint organization do
         organization organization
-        access_token access_token
+        access_token access_token if access_token
         instance_exec(&block) if block
       end
     end
@@ -107,6 +107,10 @@ class Chef
           remove_group
         end
       end
+    end
+
+    def action_restart
+      service_resource.run_action(:restart)
     end
 
     private
@@ -180,6 +184,7 @@ class Chef
       git new_resource.install_path do
         repository new_resource.git_repository
         revision new_resource.version
+        notifies :restart, new_resource
       end
 
       gem_package 'bundler' do
@@ -197,8 +202,10 @@ class Chef
         only_if do
           gemfile = ::File.join(r.install_path, 'Gemfile')
           gemfile_lock = ::File.join(r.install_path, 'Gemfile.lock')
-          !::File.exists?(gemfile_lock) || ::File.mtime(gemfile) > ::File.mtime(gemfile_lock)
+          vendor = ::File.join(r.install_path, 'vendor')
+          !::File.exists?(gemfile_lock) || ::File.mtime(gemfile) > ::File.mtime(gemfile_lock) || !::File.exists?(vendor)
         end
+        notifies :restart, new_resource
       end
     end
 
@@ -217,6 +224,7 @@ class Chef
         group new_resource.group
         mode '640'
         content JSONCompat.to_json_pretty(config)
+        notifies :restart, new_resource
       end
     end
 
