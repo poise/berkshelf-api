@@ -31,6 +31,7 @@ class Chef
     attribute(:log_verbosity, kind_of: String, equal_to: ['', '-d', '-v', '-q'], default: lazy { node['berkshelf-api']['log_verbosity'] })
     attribute(:git_repository, kind_of: [String, FalseClass], default: lazy { version.match(/^\d+(\.\d+(\.\d+)?)?$/) ? false : node['berkshelf-api']['git_repository'] })
     attribute(:config, option_collector: true)
+    attribute(:service_name, kind_of: String, default: 'berkshelf-api')
 
     def config_path
       ::File.join(path, 'config.json')
@@ -231,9 +232,10 @@ class Chef
     def service_resource
       include_recipe 'runit'
 
+      name = new_resource.service_name
       if !@service_resource
         subcontext_block do
-          @service_resource = runit_service 'berkshelf-api' do
+          @service_resource = runit_service name do
             action :enable
             options new_resource: new_resource
             cookbook 'berkshelf-api'
