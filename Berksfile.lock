@@ -18,7 +18,7 @@ DEPENDENCIES
 GRAPH
   apache2 (1.8.14)
   apt (2.3.4)
-  berkshelf-api (1.1.0)
+  berkshelf-api (1.2.2)
     build-essential (>= 0.0.0)
     git (>= 0.0.0)
     poise (>= 0.0.0)
