@@ -20,7 +20,7 @@ Apply the following role to your server (making sure both cookbooks are availabl
   "chef_type": "role",
   "run_list": [
       "recipe[nginx]",
-      "recipe[berkshelf-api]",
+      "recipe[berkshelf-api]"
   ],
   "env_run_lists": {
   }
